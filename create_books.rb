@@ -1,6 +1,6 @@
 require 'csv'
 
-CSV.foreach("tmp/books.csv") do |row|
+CSV.foreach("books.csv") do |row|
     Book.create!(
         title: row[0],
         author: row[1],
