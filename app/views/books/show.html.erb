@@ -1,0 +1,66 @@
+<%= form_with(model: @book) do |form| %>
+  <h1>Book Page - <%= @book.title %></h1>
+
+
+  <div class="field">
+  <%= form.label :title %>
+  <%= form.text_field :title, :readonly => true %>
+  </div>
+  
+  <div class="field">
+  <%= form.label :author %>
+  <%= form.text_field :author, :readonly => true %>
+  </div>
+  
+  <div class="field">
+  <%= form.label :genre %>
+  <%= form.text_field :genre, :readonly => true %>
+  </div>
+  
+  <div class="field">
+  <%= form.label :subgenre %>
+  <%= form.text_field :subgenre, :readonly => true %>
+  </div>
+  
+  <div class="field">
+  <%= form.label :pages %>
+  <%= form.text_field :pages, :readonly => true %>
+  </div>
+  
+  <div class="field">
+  <%= form.label :publisher %>
+  <%= form.text_field :publisher, :readonly => true %>
+  </div>
+  
+  <div class="field">
+  <%= form.label :copies %>
+  <%= form.text_field :copies, :readonly => true %>
+  </div>
+  
+  <% if current_user && (!(@book.copies.nil? || @book.copies.zero?)) %>
+  
+  <div class="field">
+  <%= form.label :returnDate %>
+  <%= form.text_field :returnDate, value:(@date = Time.now + 7.days
+  @date.strftime("%B %d, %Y")), :readonly => true %>
+  </div>
+  
+  <div class="field">
+  <%= form.label :email %>
+  <%= form.text_field :email, value:(current_user.email), :readonly => true %>
+  </div>
+  
+  <% end %>
+
+  <% if (!current_user.book.find_by_id(@book.id).nil?) %>
+  <div style="color:red"> No Books Available For Borrowing</div>  
+  <% elsif !(@book.copies.nil? || @book.copies.zero?) %>
+  <%= link_to 'Borrow', borrow_book_path %><br>
+  <% end %>
+  
+  <%= link_to 'Details', details_book_path(@book) %><br>
+
+  <%= link_to 'Back', books_path %>
+  
+  <% end %>
+  

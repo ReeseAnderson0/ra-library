@@ -1,0 +1,38 @@
+<h1>Profile</h1>
+
+
+<% if current_user %>
+<strong>Logged in as:</strong> 
+<%= current_user.email %>
+<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+
+
+
+<h2>Borrowed Books</h2>
+<table>
+<tbody>
+<td>Title</td>
+<td>Email</td>
+<td>Return By</td>
+<td>Status</td>
+</tbody
+
+<tbody>
+<% @BooksUser.each do |bookuser| %>
+  <tr>
+    <% if bookuser.user_id == current_user.id && current_user.book.find_by_id(bookuser.book_id).status == false %>
+    <td><%= Book.find_by_id(bookuser.book_id).title %></td>
+    <td><%= User.find_by_id(bookuser.user_id).email %></td>
+    <td><%= (bookuser.created_at + 7.days).strftime("%B %d, %Y") %></td>
+    <td><%= Book.find_by_id(bookuser.book_id).status %></td>
+    <td><%= link_to 'Return', returnBook_book_path(bookuser.book_id) %></td>    
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+
+  <%= link_to 'Back', books_path %>
+
+  <% end %>
+  

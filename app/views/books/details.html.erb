@@ -1,0 +1,39 @@
+<h1>Profile</h1>
+
+
+<% if current_user %>
+<strong>Logged in as:</strong> 
+<%= current_user.email %>
+<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+
+<h2>Details On - <%= @book.title %></h2>
+<table>
+<tbody>
+<td>Email</td>
+<td>Checked out</td>
+<td>Returned</td>
+</tbody
+</table>
+
+<tbody>
+<% @BooksUser.each do |bookuser| %>
+  <tr>
+  <% if bookuser.book_id == @book.id %>
+  <td><%= User.find_by_id(bookuser.user_id).email %></td>
+  <td><%= (bookuser.created_at).strftime("%B %d, %Y") %></td> 
+  <td><%= (Book.find_by_id(bookuser.user_id).status) %></td>
+  </tr>
+  <% end %>
+  <% end %>
+  
+  <table>
+  <thead>
+  <tr>
+  <th>Title</th>
+  <th>Copies</th>
+  <th colspan="3"></th>
+  </tr>
+  </thead>
+  
+  <% end %>
+  

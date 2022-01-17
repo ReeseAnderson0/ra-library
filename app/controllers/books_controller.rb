@@ -1,0 +1,119 @@
+class BooksController < ApplicationController
+  before_action :set_book, only: %i[ show edit update destroy details ]
+  before_action :authenticate_user!, except: [:show, :index]
+  
+  # GET /books or /books.json
+  def index
+    @books = Book.all
+  end
+  
+  def log
+    @BooksUser = BooksUser.all
+    @User = User.all
+    @books = Book.all
+    @Log = Log.all
+  end
+  
+  def details
+    @BooksUser = BooksUser.all
+    @User = User.all
+    @books = Book.all
+  end
+  
+  #OverdueMailer.overdue_notice.deliver_later
+
+
+  def returnBook
+    nbook = Book.find(params[:id])
+    userbook = User.find_by_id(current_user.id).book.ids
+    if (nbook.status == false)
+      Log.create(title: nbook.title, author: nbook.author, email: current_user.email)
+      current_user.book.destroy(Book.find_by_id(nbook))
+      nbook.status = true
+      nbook.copies = nbook.copies + 1
+      nbook.save
+      redirect_to "/user", notice: (nbook.title + " - has been Returned")
+    else
+      redirect_to "/user", notice: (nbook.title + " - has already been Returned") 
+    end
+  end
+  
+  # GET /books/1 or /books/1.json
+  def show
+    @books = Book.all
+  end
+  
+  # GET /books/new
+  def new
+    @book = Book.new
+  end
+  
+  def notify
+  end
+
+  # GET /books/1/edit
+  def edit
+  end
+  
+  # GET /books/1/borrow
+  def borrow
+    user = User.find(current_user.id)
+    nbook = Book.find(params[:id])
+    if (user.book.find_by_id(nbook.id).nil? != false)
+      user.book << nbook
+      nbook.copies = nbook.copies - 1
+      nbook.status = false
+      nbook.save
+      redirect_to "/user", notice: (nbook.title + " - has been Borrowed")
+    else
+      redirect_to "/user", notice: (nbook.title + " - is already Borrowed") 
+    end
+  end
+  
+  # POST /books or /books.json
+  def create
+    @book = Book.new(book_params)
+    respond_to do |format|
+      if @book.save
+        format.html { redirect_to book_url(@book), notice: "Book was successfully created." }
+        format.json { render :show, status: :created, location: @book }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  # PATCH/PUT /books/1 or /books/1.json
+  def update
+    respond_to do |format|
+      if @book.update(book_params)
+        format.html { redirect_to book_url(@book), notice: "Book was successfully updated." }
+        format.json { render :show, status: :ok, location: @book }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  # DELETE /books/1 or /books/1.json
+  def destroy
+    @book.destroy
+    respond_to do |format|
+      format.html { redirect_to books_url, notice: "Book was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+  
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
+  
+  # Only allow a list of trusted parameters through.
+  def book_params
+    params.require(:book).permit(:title, :author, :genre, :subgenre, :pages, :publisher, :copies)
+  end
+end
