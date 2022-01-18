@@ -6,8 +6,8 @@ class OverdueMailer < ApplicationMailer
     @BooksIDs = Array.new
     
     for x in @Overdue_users
-      @UserIDs << @Overdue_users.find_by(id: x).user_id
-      @BooksIDs << @Overdue_users.find_by(id: x).book_id
+      @UserIDs << @Overdue_users.find_by(user_id: x).user_id
+      @BooksIDs << @Overdue_users.find_by(book_id: x).book_id
     end
     
     @uniqIDs = Array.new
@@ -19,8 +19,8 @@ class OverdueMailer < ApplicationMailer
       @length = User.find_by(id: x).book.count
       while n < @length
         @overdueTime = User.find_by(id: x).book.find_by(id: @BooksIDs[n]).updated_at - 10.days
-        if (User.find_by(id: x).book.find_by(id: @BooksIDs[n]).status == false &&
-          (User.find_by(id: x).book.find_by(id: @BooksIDs[n]).updated_at >  @overdueTime))
+        if (User.find_by(id: x).book.find_by(book_id: @BooksIDs[n]).status == false &&
+          (User.find_by(id: x).book.find_by(book_id: @BooksIDs[n]).updated_at >  @overdueTime))
           @overdueIDs << x
         end
         n += 1
