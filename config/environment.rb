@@ -6,10 +6,13 @@ Rails.application.initialize!
 
 ActionMailer::Base.smtp_settings = {
   user_name: 'apikey', 
-  password:  Rails.application.credentials.dig(:sendgrid, :api_key),
+  password:  Rails.application.credentials.dig(:api_key),
   domain: 'library-main.herokuapp.com',
   address: 'smtp.sendgrid.net',
   port: 587,
   authentication: :plain,
   enable_starttls_auto: true
 }
+
+config.action_mailer.delivery_method = :smtp
+
