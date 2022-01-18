@@ -5,13 +5,19 @@ class OverdueMailer < ApplicationMailer
     @UserIDs = Array.new
     @BooksIDs = Array.new
     
+    @Overdue_users = @Overdue_users.uniq
+
+    puts "Here 1"
+
     for x in @Overdue_users
-      @UserIDs << @Overdue_users.find_by(id: x).user_id
-      @BooksIDs << @Overdue_users.find_by(id: x).book_id
+      @UserIDs << @Overdue_users.find_by(user_id: x).user_id
+      @BooksIDs << @Overdue_users.find_by(book_id: x).book_id
     end
-    
+
     @uniqIDs = Array.new
     @uniqIDs = @UserIDs.uniq
+
+    puts "Here 2"
     
     @overdueIDs = Array.new
     n = 0
@@ -36,6 +42,8 @@ class OverdueMailer < ApplicationMailer
       @overdueEmails << User.find_by(id: q).email
     end
     
+    puts "Here 3"
+
     mail(
     to: @overdueEmails,
     subject: "Overdue Books"
