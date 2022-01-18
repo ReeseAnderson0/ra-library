@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'LibraryOverdueNotifier@gmail.com'
+  default from: 'reese.anderson@onmail.com'
   layout 'mailer'
 end
