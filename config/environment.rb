@@ -6,7 +6,7 @@ Rails.application.initialize!
 
 ActionMailer::Base.smtp_settings = {
   user_name: 'apikey', 
-  password:  Rails.application.credentials.dig(:api_key),
+  password:  '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',
   domain: 'library-main.herokuapp.com',
   address: 'smtp.sendgrid.net',
   port: 587,
