@@ -1,50 +1,40 @@
 class OverdueMailer < ApplicationMailer
   
   def overdue_notice
-    @Overdue_users = BooksUser.all
-    @UserIDs = Array.new
-    @BooksIDs = Array.new
-    
-    puts "Here 1"
+    @BooksUser = BooksUser.all
+    @CurrentUsers = Array.new
+    @OverdueEmails = Array.new
+    @overdueUsers = Array.new
 
-    for x in @Overdue_users
-      @UserIDs << @Overdue_users.find_by(id: x).user_id
-      @BooksIDs << @Overdue_users.find_by(id: x).book_id
+    for x in @BooksUser
+      @CurrentUsers << User.find_by(id: x.user_id).id
     end
 
-    @uniqIDs = Array.new
-    @uniqIDs = @UserIDs.uniq
-
-    puts "Here 2"
+    @CurrentUsers = @CurrentUsers.uniq
     
-    @overdueIDs = Array.new
     n = 0
-    for x in @uniqIDs
-      @length = User.find_by(id: x).book.count
+    for z in @CurrentUsers
+      @length = User.find_by(id: z).book.count
       while n < @length
-        @overdueTime = User.find_by(id: x).book.find_by(id: @BooksIDs[n]).updated_at - 10.days
-        if (User.find_by(id: x).book.find_by(id: @BooksIDs[n]).status == false &&
-          (User.find_by(id: x).book.find_by(id: @BooksIDs[n]).updated_at >  @overdueTime))
-          @overdueIDs << x
+        @overdueTime = User.find_by(id: z).book[n].updated_at - 10.days
+        if (User.find_by(id: z).book[n].status == false &&
+          (User.find_by(id: z).book[n].updated_at >  @overdueTime))
+          @overdueUsers << User.find_by(id: z)
+          n = @length
         end
         n += 1
       end
-      @BooksIDs.shift(2)
       n = 0
     end
-    
-    @overdueIDs = @overdueIDs.uniq
-    
-    @overdueEmails = Array.new
-    for q in @overdueIDs
-      @overdueEmails << User.find_by(id: q).email
+
+    for y in @overdueUsers
+      @OverdueEmails << User.find_by(id: y).email
     end
     
-    puts "Here 3"
-
     mail(
-    to: @overdueEmails,
+    to: @OverdueEmails,
     subject: "Overdue Books"
     )
+
   end
 end
