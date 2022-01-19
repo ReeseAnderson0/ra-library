@@ -1,0 +1,56 @@
+<%= form_with(model: @book) do |form| %>
+    <h1>Book Page - <%= @book.title %></h1>
+    
+    <h1>Library Log</h1>
+    
+    
+    <% if current_user %>
+    <strong>Logged in as:</strong> 
+    <%= current_user.email %>
+    <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+    
+    <h2>Log Of Current Borrowed Books</h2>
+    <table>
+    <tbody>
+    <td>Title</td>
+    <td>Email</td>
+    <td>Checkout Date</td>
+    <td>Issued  Return Date</td>
+    </tbody
+    
+    <tbody>
+    <% @BooksUser.each do |bookuser| %>
+        <% if (bookuser.book_id == @book.id) %>
+        <tr>
+        <td><%= Book.find_by_id(bookuser.book_id).title %></td>
+        <td><%= User.find_by_id(bookuser.user_id).email %></td>
+        <td><%= (bookuser.created_at).strftime("%B %d, %Y") %></td>
+        <td><%= (bookuser.created_at + 7.days).strftime("%B %d, %Y") %></td>
+        </tr>
+        <% end %>
+        <% end %>
+        </tbody>
+        </table>
+        
+        <table>
+        <tbody>
+        <td>Title</td>
+        <td>Email</td>
+        <td>Return Date</td>
+        </tbody
+        <tbody>
+        <h2>Log Of Returned Books</h2>
+        <% @Log.each do |log| %>
+            <% if (log.title == @book.title) %>
+            <tr>
+            <td><%= log.title %></td>
+            <td><%= log.email %></td>
+            <td><%= (log.created_at).strftime("%B %d, %Y") %></td>
+            </tr>
+            <% end %>
+            <% end %>
+            </tbody>
+            </table>
+            <% end %>        
+            <% end %>
+            

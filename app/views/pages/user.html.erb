@@ -6,9 +6,7 @@
 <%= current_user.email %>
 <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
 
-
-
-<h2>Borrowed Books</h2>
+<h4>Borrowed Books</h4>
 <table>
 <tbody>
 <td>Title</td>
@@ -25,7 +23,7 @@
     <td><%= User.find_by_id(bookuser.user_id).email %></td>
     <td><%= (bookuser.created_at + 7.days).strftime("%B %d, %Y") %></td>
     <td><%= Book.find_by_id(bookuser.book_id).status %></td>
-    <td><%= link_to 'Return', returnBook_book_path(bookuser.book_id) %></td>    
+    <td><div class="btn btn-warning btn-sm"><%= link_to 'Return', returnBook_book_path(bookuser.book_id) %></div></td>    
     </tr>
   <% end %>
 <% end %>

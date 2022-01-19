@@ -1,7 +1,18 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[ show edit update destroy details ]
+  before_action :set_book, only: %i[ show edit update destroy details history]
   before_action :authenticate_user!, except: [:show, :index]
   
+  def waitlist
+    book = Book.find(params[:id])
+    if (Waitlist.find_by(email: current_user.email, book_id: book.id).nil?)
+      redirect_to book_url(book), notice: ("You'll receive an email when the book is available")
+      Waitlist.create(email: current_user.email, book_id: book.id)
+    else
+      redirect_to book_url(book), notice: ("You are already on the waitlist")
+    end
+  end
+
+
   # GET /books or /books.json
   def index
     @books = Book.all
@@ -20,9 +31,6 @@ class BooksController < ApplicationController
     @books = Book.all
   end
   
-  #OverdueMailer.overdue_notice.deliver_later
-
-
   def returnBook
     nbook = Book.find(params[:id])
     userbook = User.find_by_id(current_user.id).book.ids
@@ -33,6 +41,9 @@ class BooksController < ApplicationController
       nbook.copies = nbook.copies + 1
       nbook.save
       redirect_to "/user", notice: (nbook.title + " - has been Returned")
+      if !(Waitlist.find_by(book_id: nbook.id).nil?)
+        WaitlistMailer.with(book_id: nbook.id).waitlist_notice.deliver_later
+      end 
     else
       redirect_to "/user", notice: (nbook.title + " - has already been Returned") 
     end
@@ -42,17 +53,16 @@ class BooksController < ApplicationController
   def show
     @books = Book.all
   end
+
+  def history
+    @books = Book.all
+    @BooksUser = BooksUser.all
+    @Log = Log.all
+  end
   
   # GET /books/new
   def new
     @book = Book.new
-  end
-  
-  def notify
-  end
-
-  # GET /books/1/edit
-  def edit
   end
   
   # GET /books/1/borrow

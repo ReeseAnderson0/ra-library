@@ -16,7 +16,7 @@ class OverdueMailer < ApplicationMailer
     for z in @CurrentUsers
       @length = User.find_by(id: z).book.count
       while n < @length
-        @overdueTime = User.find_by(id: z).book[n].updated_at - 10.days
+        @overdueTime = User.find_by(id: z).book[n].updated_at + 7.days
         if (User.find_by(id: z).book[n].status == false &&
           (User.find_by(id: z).book[n].updated_at >  @overdueTime))
           @overdueUsers << User.find_by(id: z)

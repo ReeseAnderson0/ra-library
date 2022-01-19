@@ -52,15 +52,23 @@
   
   <% end %>
 
-  <% if (!current_user.book.find_by_id(@book.id).nil?) %>
-  <div style="color:red"> No Books Available For Borrowing</div>  
-  <% elsif !(@book.copies.nil? || @book.copies.zero?) %>
-  <%= link_to 'Borrow', borrow_book_path %><br>
-  <% end %>
-  
-  <%= link_to 'Details', details_book_path(@book) %><br>
+  <% if (@book.copies.nil? || @book.copies.zero?) %>
+  <div class="btn btn-success btn-sm">
+  <%= link_to 'Waitlist', waitlist_book_path %><br>
+  </div>
 
+  <% elsif !(@book.copies.nil? || @book.copies.zero?) %>
+    <div class="btn btn-success btn-sm">
+      <%= link_to 'Borrow', borrow_book_path %><br>
+    </div>
+  <% end %>
+  <% if current_user && current_user.admin %>
+    <div class="btn btn-warning btn-sm">
+      <%= link_to 'Details', details_book_path(@book) %><br>
+    </div>
+    <% end %>
+<div class="btn btn-warning btn-sm">
   <%= link_to 'Back', books_path %>
-  
+  </div>
   <% end %>
   

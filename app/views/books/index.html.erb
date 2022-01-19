@@ -4,17 +4,28 @@
 <% if current_user %>
     <strong>Logged in as:</strong> 
     <%= current_user.email %>
+    <div class="btn btn-warning btn-sm">
     <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+    </div>
+    <div class="btn btn-warning btn-sm">
     <a href="/user">Profile</a>    
-
+    </div><br>
 <% else %>
+<div class="btn btn-warning btn-sm">
     <%= link_to 'Sign up', new_user_registration_path %>
+    </div>
+    <div class="btn btn-warning btn-sm">
     <%= link_to 'Sign in', new_user_session_path %>
+    </div>
 <% end %>
 
 <% if current_user && current_user.admin %>
-  <div><br><%= link_to 'New Book', new_book_path %>
-  <%= link_to 'Library Log', log_book_path %></div>
+  <div class="btn btn-warning btn-sm">
+  <%= link_to 'New Book', new_book_path %>
+  </div>
+  <div class="btn btn-warning btn-sm">
+  <%= link_to 'Library Log', log_book_path %>
+  </div>
 <% end %>
 
 

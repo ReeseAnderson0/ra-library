@@ -1,11 +1,16 @@
 <h1>Library Homepage</h1>
 
 <% if current_user %>
-    <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+<div class="btn btn-warning btn-sm">
+<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+</div>
+
 <% else %>
-    <%= link_to 'Sign up', new_user_registration_path %>
-    <%= link_to 'Sign in', new_user_session_path %>
-<% end %>
-
-<br><a href="/books">See available books</a>    
-
+    <div class="btn btn-warning btn-sm">
+        <%= link_to 'Sign up', new_user_registration_path, :type => 'button' %>
+    </div>
+    <div class="btn btn-warning btn-sm">
+        <%= link_to 'Sign in', new_user_session_path %>
+    <% end %>
+    </div>
+    <br><br><a class="btn btn-warning btn-sm" href="/books">See available books</a>    
