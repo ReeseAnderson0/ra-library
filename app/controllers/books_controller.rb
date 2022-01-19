@@ -11,8 +11,8 @@ class BooksController < ApplicationController
       redirect_to book_url(book), notice: ("You are already on the waitlist")
     end
   end
-
-
+  
+  
   # GET /books or /books.json
   def index
     @books = Book.all
@@ -41,7 +41,7 @@ class BooksController < ApplicationController
       nbook.copies = nbook.copies + 1
       nbook.save
       if !(Waitlist.find_by(book_id: nbook.id).nil?)
-        WaitlistMailer.with(book_id: nbook.id).waitlist_notice.deliver
+        #WaitlistMailer.with(book_id: nbook.id).waitlist_notice.deliver
       end 
       redirect_to "/user", notice: (nbook.title + " - has been Returned")
     else
@@ -53,7 +53,7 @@ class BooksController < ApplicationController
   def show
     @books = Book.all
   end
-
+  
   def history
     @books = Book.all
     @BooksUser = BooksUser.all
