@@ -1,13 +1,14 @@
 require 'csv'
 
-CSV.foreach("books.csv") do |row|
+CSV.foreach("books2.csv") do |row|
     Book.create!(
-        title: row[0],
-        author: row[1],
-        genre: row[2],
-        subgenre: row[3],
-        pages: row[4],
-        publisher: row[5],
-        copies: row[6]
+        library_name: row[0],
+        title: row[1],
+        author: row[2],
+        genre: row[3],
+        subgenre: row[4],
+        pages: row[5],
+        publisher: row[6],
+        copies: row[7]
     )
 end 
