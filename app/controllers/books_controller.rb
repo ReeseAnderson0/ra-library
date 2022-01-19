@@ -74,7 +74,12 @@ class BooksController < ApplicationController
       nbook.copies = nbook.copies - 1
       nbook.status = false
       nbook.save
-      redirect_to "/user", notice: (nbook.title + " - has been Borrowed")
+      if !(Waitlist.find_by(book_id: nbook.id, email: user.email).nil?)
+        Waitlist.find_by(book_id: nbook.id, email: user.email).destroy
+        redirect_to "/user", notice: (nbook.title + " - has been borrowed and you have been removed from waitlist")
+      else
+        redirect_to "/user", notice: (nbook.title + " - has been Borrowed")
+      end
     else
       redirect_to "/user", notice: (nbook.title + " - is already Borrowed") 
     end

@@ -30,7 +30,29 @@
 </table>
 
 
-  <%= link_to 'Back', books_path %>
+<h4>Waitlisted Book</h4>
+<table>
+<tbody>
+<td>Title</td>
+<td>Copies</td>
+</tbody
+
+<tbody>
+<% @Waitlist.each do |waitlist| %>
+  <tr>
+    <% if waitlist.email == current_user.email %>
+    <td><%= Book.find_by_id(waitlist.book_id).title %></td>
+    <td><%= Book.find_by_id(waitlist.book_id).copies %></td>
+    <td><div class="btn btn-warning btn-sm"><%= link_to 'View', show_book_path(waitlist.book_id) %></div></td>
+    <td><div class="btn btn-danger btn-sm"><%= link_to 'Remove', show_book_path(waitlist.book_id) %></div></td>        
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+
+<td><div class="btn btn-secondary btn-sm"><%= link_to 'Back', books_path %></td>    
+  
 
   <% end %>
   

@@ -43,7 +43,7 @@
       <tr>
         <td><%= book.title %></td>
         <td><%= book.copies %></td>
-        <td><%= link_to 'View', show_book_path(book) %></td>
+        <td><%= link_to 'View', show_book_path(book) %></td>    
         <% if current_user && current_user.admin %>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
