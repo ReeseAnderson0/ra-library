@@ -29,6 +29,7 @@ class BooksController < ApplicationController
     @BooksUser = BooksUser.all
     @User = User.all
     @books = Book.all
+    @Log = Log.all
   end
   
   def returnBook

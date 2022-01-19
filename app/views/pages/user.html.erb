@@ -12,7 +12,6 @@
 <td>Title</td>
 <td>Email</td>
 <td>Return By</td>
-<td>Status</td>
 </tbody
 
 <tbody>
@@ -22,8 +21,7 @@
     <td><%= Book.find_by_id(bookuser.book_id).title %></td>
     <td><%= User.find_by_id(bookuser.user_id).email %></td>
     <td><%= (bookuser.created_at + 7.days).strftime("%B %d, %Y") %></td>
-    <td><%= Book.find_by_id(bookuser.book_id).status %></td>
-    <td><div class="btn btn-warning btn-sm"><%= link_to 'Return', returnBook_book_path(bookuser.book_id) %></div></td>    
+    <td><div class="btn btn-success btn-sm"><%= link_to 'Return', returnBook_book_path(bookuser.book_id) %></div></td>    
     </tr>
   <% end %>
 <% end %>
@@ -51,7 +49,7 @@
 </table>
 
 
-<td><div class="btn btn-secondary btn-sm"><%= link_to 'Back', books_path %></td>    
+<td><div class="btn btn-warning btn-sm"><%= link_to 'Back', books_path %></td>    
   
 
   <% end %>

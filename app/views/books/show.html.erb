@@ -54,11 +54,11 @@
 
   <% if (@book.copies.nil? || @book.copies.zero?) %>
   <div class="btn btn-success btn-sm">
-  <%= link_to 'Waitlist', waitlist_book_path %><br>
+  <%= link_to 'Waitlist', borrow_book_path %><br>
   </div>
 
   <% elsif !(@book.copies.nil? || @book.copies.zero?) %>
-    <div class="btn btn-success btn-sm">
+    <div class="btn btn-warning btn-sm">
       <%= link_to 'Borrow', borrow_book_path %><br>
     </div>
   <% end %>
@@ -67,7 +67,7 @@
       <%= link_to 'Details', details_book_path(@book) %><br>
     </div>
     <% end %>
-<div class="btn btn-secondary btn-sm">
+<div class="btn btn-warning btn-sm">
   <%= link_to 'Back', books_path %>
   </div>
   <% end %>
