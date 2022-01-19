@@ -41,7 +41,7 @@ class BooksController < ApplicationController
       nbook.copies = nbook.copies + 1
       nbook.save
       if !(Waitlist.find_by(book_id: nbook.id).nil?)
-        #WaitlistMailer.with(book_id: nbook.id).waitlist_notice.deliver
+        WaitlistMailer.with(book_id: nbook.id).waitlist_notice.deliver_later
       end 
       redirect_to "/user", notice: (nbook.title + " - has been Returned")
     else
