@@ -4,9 +4,12 @@
 <% if current_user %>
     <strong>Logged in as:</strong> 
     <%= current_user.email %>
-    <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
-    <a href="/user">Profile</a>    
-
+    <div class="btn-group" role="group" aria-label="Basic example">
+    <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-warning btn-sm" %>
+    <div class="btn btn-warning btn-sm">
+    <a button_to href="/user">Profile</a>    
+    </div><br>
+    </div>
 <% else %>
     <%= link_to 'Sign up', new_user_registration_path %>
     <%= link_to 'Sign in', new_user_session_path %>
