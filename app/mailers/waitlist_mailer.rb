@@ -2,10 +2,10 @@ class WaitlistMailer < ApplicationMailer
   
   def waitlist_notice
     @book_id = params[:book_id]
-    @waitlist_users = Waitlist.where(:book_id => 210)
+    @waitlist_users = Waitlist.where(:book_id => @book_id)
     @waitlist_emails = Array.new
     @book_title = Book.find_by(id: @book_id).title
-
+    
     for x in @waitlist_users
       @waitlist_emails << x.email
     end
