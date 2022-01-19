@@ -42,7 +42,7 @@ class BooksController < ApplicationController
       nbook.save
       redirect_to "/user", notice: (nbook.title + " - has been Returned")
       if !(Waitlist.find_by(book_id: nbook.id).nil?)
-        WaitlistMailer.with(book_id: nbook.id).waitlist_notice.deliver_later
+        WaitlistMailer.with(book_id: nbook.id).waitlist_notice.deliver
       end 
     else
       redirect_to "/user", notice: (nbook.title + " - has already been Returned") 
