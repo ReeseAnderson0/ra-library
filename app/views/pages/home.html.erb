@@ -7,7 +7,7 @@
 
 <% else %>
 <div class="btn-group" role="group" aria-label="Basic example">
-<%= button_to 'Sign up', new_user_registration_path, class:"btn btn-warning" %>
+<%= link_to 'Sign up', new_user_registration_path, class:"btn btn-warning" %>
 <%= button_to 'Sign in', new_user_session_path, class:"btn btn-warning" %>
 </div>
 <% end %>
