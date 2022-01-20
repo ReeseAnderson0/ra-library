@@ -1,5 +1,12 @@
 <h1>Profile</h1>
 
+<% if current_user %>
+    <div class="btn-group" role="group" aria-label="Basic example">
+    <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
+    <%= button_to 'Home', home_page_path, class:"btn btn-warning" %>
+    </div>
+    <% end %>
+
 
 <% if current_user %>
 <strong>Logged in as:</strong> 
@@ -47,10 +54,6 @@
   <% end %>
 <% end %>
 </table>
-
-
-<div class="btn btn-warning btn-sm"><%= link_to 'Home', :root %></div>
   
-
   <% end %>
   

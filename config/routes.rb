@@ -4,8 +4,12 @@ Rails.application.routes.draw do
   resources :books
 
   root to: "pages#home"
-  get "/user", to: "pages#user", as: 'show_user'
-  get "/log", to: "books#log", as: 'log_book'
+  post "/", to: "pages#home", as: 'home_page'
+  post "/user", to: "pages#user", as: 'show_user'
+  get "/user", to: "pages#user"
+  post "/log", to: "books#log", as: 'log_book'
+  get "/log", to: "books#log"
+  post "/books/new", to: "books#new", as: 'create_book'
   get "/books", to: "books#index", as: 'index_book'
   get "/books/:id/show", to: "books#show", as: 'show_book'
   get "/books/:id/history", to: "books#history", as: 'history_book'

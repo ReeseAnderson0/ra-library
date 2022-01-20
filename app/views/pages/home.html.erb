@@ -1,6 +1,7 @@
 <% if current_user %>
 <div class="btn-group" role="group" aria-label="Basic example">
 <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
+<%= button_to 'Profile', show_user_path, class:"btn btn-primary" %>
 </div>
 
 <% else %>

@@ -2,9 +2,9 @@
     <strong>Logged in as:</strong> 
     <%= current_user.email %>
     <div class="btn-group" role="group" aria-label="Basic example">
-    <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-warning btn-sm" %>
-    <div class="btn btn-warning btn-sm"><a button_to href="/user">Profile</a></div>
-    <div class="btn btn-warning btn-sm"><%= link_to 'Home', :root %></div>
+    <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
+    <%= button_to 'Profile', show_user_path, class:"btn btn-primary" %>
+    <%= button_to 'Home', home_page_path, class:"btn btn-warning" %>
     </div>
     
 <% else %>
@@ -25,12 +25,18 @@
 
 
 
+<div>
+<%= link_to 'All Branches', index_book_path(branch_search: ['Downtown Branch', 'Suburbs Branch','Neighbourhood Branch']), class:"btn btn-warning" %>
+<%= link_to 'Downtown Branch', index_book_path(branch_search: ['Downtown Branch']), class:"btn btn-warning" %>
+<%= link_to 'Suburbs Branch', index_book_path(branch_search: ['Suburbs Branch']), class:"btn btn-warning" %>
+<%= link_to 'Neighbourhood Branch', index_book_path(branch_search: ['Neighbourhood Branch']), class:"btn btn-warning" %>
+</div>
 
 <% if current_user && current_user.admin %>
 <br>
 <div class="btn-group" role="group" aria-label="Basic example">
-  <%= link_to 'New Book', new_book_path, class:"btn btn-warning btn-sm" %>
-  <%= link_to 'Library Log', log_book_path, class:"btn btn-warning btn-sm" %>
+  <%= button_to 'New Book', new_book_path, class:"btn btn-success btn-sm" %>
+  <%= button_to 'Library Log', log_book_path, class:"btn btn-primary btn-sm" %>
   </div>
 <% end %>
 
