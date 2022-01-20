@@ -1,10 +1,13 @@
+<div class="p-3 mb-2 bg-light text-black " style="height: full;">
+
+<div class="row justify-content-center">
+<div class="row col-md-6 col-md-push-">
 <h1>Editing Book</h1>
 
 <%= render 'form', book: @book %>
 
-<div class="btn btn-success btn-sm">
-<%= link_to 'Show', @book %> 
+<div>
+<%= link_to 'Back', :back, class:"btn btn-danger btn-sm" %>
 </div>
-<div class="btn btn-danger btn-sm">
-<%= link_to 'Back', :back %>
+</div>
 </div>
