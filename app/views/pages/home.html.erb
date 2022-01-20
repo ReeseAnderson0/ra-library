@@ -1,15 +1,22 @@
+
 <% if current_user %>
+<strong>Logged in as:</strong> 
+<%= current_user.email %><br>
 <div class="btn-group" role="group" aria-label="Basic example">
 <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
 <%= button_to 'Profile', show_user_path, class:"btn btn-primary" %>
-</div>
 
 <% else %>
 <div class="btn-group" role="group" aria-label="Basic example">
-<%= link_to 'Sign up', new_user_registration_path, class:"btn btn-warning" %>
-<%= button_to 'Sign in', new_user_session_path, class:"btn btn-warning" %>
-</div>
+<%= link_to 'Sign up', new_user_registration_path, class:"btn btn-success" %>
+<%= button_to 'Sign in', new_user_session_path, class:"btn btn-primary" %>
 <% end %>
+<% if current_user.admin %>
+
+<%= button_to 'Library Log', log_book_path, class:"btn btn-primary" %>
+<% end %>
+</div>
+
 <h1>Library Homepage</h1>
 
 <div>

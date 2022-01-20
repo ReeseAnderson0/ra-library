@@ -2,13 +2,10 @@
 
 
 <% if current_user %>
-    <strong>Logged in as:</strong> 
-    <%= current_user.email %>
     <div class="btn-group" role="group" aria-label="Basic example">
-    <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-warning btn-sm" %>
-    <div class="btn btn-warning btn-sm">
-    <a button_to href="/user">Profile</a>    
-    </div><br>
+    <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-warning" %>
+    <%= button_to 'Profile', show_user_path, class:"btn btn-primary" %>
+    <%= link_to 'Back', :back, class:"btn btn-success" %>
     </div>
 <% else %>
     <%= link_to 'Sign up', new_user_registration_path %>
@@ -24,12 +21,12 @@
   </thead>
 
   <tbody>
+  <%# Creates log of multiple books due to multiple locations %>
     <% @Log.each do |log| %>
       <tr>
         <td><%= log.title %></td>
         <td><%= link_to 'History', history_book_path(Book.find_by(title: log.title)) %></td>
     <% end %>
-    <tr><td>TESTING</td></tr>
     <% @BooksUser.each do |booksUser| %>
       <tr>
         <td><%= Book.find_by(id: booksUser.book_id).title %></td>
