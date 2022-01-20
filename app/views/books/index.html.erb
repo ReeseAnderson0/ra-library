@@ -7,12 +7,10 @@
     <%= button_to 'Profile', show_user_path, class:"btn btn-primary" %>
     <%= button_to 'Home', home_page_path, class:"btn btn-warning" %>
     </div>
-    
 <% else %>
-
 <div class="btn-group" role="group" aria-label="Basic example">
-<%= link_to 'Sign up', new_user_registration_path, class:"btn btn-warning btn-sm" %>
-    <%= button_to 'Sign in', new_user_session_path, class:"btn btn-warning btn-sm" %>
+<%= link_to 'Sign up', new_user_registration_path, class:"btn btn-success btn-sm" %>
+    <%= button_to 'Sign in', new_user_session_path, class:"btn btn-primary btn-sm" %>
     </div>
 <% end %>
 
