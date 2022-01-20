@@ -2,7 +2,15 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy details history]
   before_action :authenticate_user!, except: [:show, :index]
   
+  def removeWaitlist
+    @waitlist = Waitlist.find(params[:id])
+    @book = Book.find_by(id: @waitlist.id)
+    @waitlist.destroy
+    redirect_to "/user", notice: (@book.title + " - has already been removed from waitlist") 
+  end
+
   def waitlist
+    waitlist = Waitlist.all
     book = Book.find(params[:id])
     if (Waitlist.find_by(email: current_user.email, book_id: book.id).nil?)
       redirect_to book_url(book), notice: ("You'll receive an email when the book is available")
@@ -15,7 +23,9 @@ class BooksController < ApplicationController
   
   # GET /books or /books.json
   def index
-    @books = Book.all
+    @books = Book.where(library_name: params[:branch_search])
+    @search_size = Book.where(library_name: params[:branch_search])
+    @branch = Branch.all
   end
   
   def log
@@ -70,7 +80,7 @@ class BooksController < ApplicationController
   def borrow
     user = User.find(current_user.id)
     nbook = Book.find(params[:id])
-    if (user.book.find_by_id(nbook.id).nil? != false)
+    if (user.book.find_by_id(nbook.id).nil? != false && nbook.copies > 0) 
       user.book << nbook
       nbook.copies = nbook.copies - 1
       nbook.status = false
@@ -130,6 +140,6 @@ class BooksController < ApplicationController
   
   # Only allow a list of trusted parameters through.
   def book_params
-    params.require(:book).permit(:title, :author, :genre, :subgenre, :pages, :publisher, :copies)
+    params.require(:book).permit(:title, :author, :genre, :subgenre, :pages, :publisher, :copies, :library_name)
   end
 end

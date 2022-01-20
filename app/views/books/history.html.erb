@@ -22,8 +22,8 @@
     <% @BooksUser.each do |bookuser| %>
         <% if (bookuser.book_id == @book.id) %>
         <tr>
-        <td><%= Book.find_by_id(bookuser.book_id).title %></td>
-        <td><%= User.find_by_id(bookuser.user_id).email %></td>
+        <td><%= Book.find_by(id: bookuser.book_id).title %></td>
+        <td><%= User.find_by(id: bookuser.user_id).email %></td>
         <td><%= (bookuser.created_at).strftime("%B %d, %Y") %></td>
         <td><%= (bookuser.created_at + 7.days).strftime("%B %d, %Y") %></td>
         </tr>

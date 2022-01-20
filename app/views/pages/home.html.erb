@@ -1,8 +1,6 @@
-<h1>Library Homepage</h1>
-
 <% if current_user %>
 <div class="btn-group" role="group" aria-label="Basic example">
-<%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-warning" %>
+<%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
 </div>
 
 <% else %>
@@ -11,5 +9,11 @@
 <%= button_to 'Sign in', new_user_session_path, class:"btn btn-warning" %>
 </div>
 <% end %>
+<h1>Library Homepage</h1>
 
-<br><br><a class="btn btn-primary" href="/books">See available books</a>    
+<div>
+<%= link_to 'All Branches', index_book_path(branch_search: ['Downtown Branch', 'Suburbs Branch','Neighbourhood Branch']), class:"btn btn-warning" %>
+<%= link_to 'Downtown Branch', index_book_path(branch_search: ['Downtown Branch']), class:"btn btn-warning" %>
+<%= link_to 'Suburbs Branch', index_book_path(branch_search: ['Suburbs Branch']), class:"btn btn-warning" %>
+<%= link_to 'Neighbourhood Branch', index_book_path(branch_search: ['Neighbourhood Branch']), class:"btn btn-warning" %>
+</div>

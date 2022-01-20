@@ -1,24 +1,30 @@
-<h1>Books</h1>
-
-
 <% if current_user %>
     <strong>Logged in as:</strong> 
     <%= current_user.email %>
     <div class="btn-group" role="group" aria-label="Basic example">
     <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-warning btn-sm" %>
-    <div class="btn btn-warning btn-sm">
-    <a button_to href="/user">Profile</a>    
-    </div><br>
+    <div class="btn btn-warning btn-sm"><a button_to href="/user">Profile</a></div>
+    <div class="btn btn-warning btn-sm"><%= link_to 'Home', :root %></div>
     </div>
+    
 <% else %>
 
 <div class="btn-group" role="group" aria-label="Basic example">
-<%= button_to 'Sign up', new_user_registration_path, class:"btn btn-warning btn-sm" %>
-    </div>
-    <div class="btn btn-warning btn-sm">
+<%= link_to 'Sign up', new_user_registration_path, class:"btn btn-warning btn-sm" %>
     <%= button_to 'Sign in', new_user_session_path, class:"btn btn-warning btn-sm" %>
     </div>
 <% end %>
+
+<% if params[:branch_search].count == 1 %>
+<h1><%= Branch.find_by(branch_name: params[:branch_search]).branch_name %></h1>
+<h4><%= Branch.find_by(branch_name: params[:branch_search]).address %></h1>
+<h4><%= Branch.find_by(branch_name: params[:branch_search]).phone %></h1>
+<% else %>
+<h1>Full Branch Search</h1>
+<% end %>
+
+
+
 
 <% if current_user && current_user.admin %>
 <br>
@@ -34,7 +40,9 @@
     <tr>
       <th>Title</th>
       <th>Copies</th>
-      <th>Location</th>
+      <% if params[:branch_search].count != 1 %>
+      <th>Address</th>
+      <% end %>
     </tr>
   </thead>
 
@@ -43,7 +51,9 @@
       <tr>
         <td><%= book.title %></td>
         <td><%= book.copies %></td>
+        <% if params[:branch_search].count != 1 %>
         <td><%= book.library_name %></td>
+        <% end %>
         <td><%= link_to 'View', show_book_path(book) %></td>    
         <% if current_user && current_user.admin %>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
