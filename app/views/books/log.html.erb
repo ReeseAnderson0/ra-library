@@ -1,40 +1,47 @@
-<h1>Library Logs</h1>
+<div class="p-3 mb-2 bg-light text-black " style="height: full;">
+<nav class="navbar navbar-expand-lg justify-content-center">
+
 
 
 <% if current_user %>
-    <div class="btn-group" role="group" aria-label="Basic example">
-    <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-warning" %>
-    <%= button_to 'Profile', show_user_path, class:"btn btn-primary" %>
-    <%= link_to 'Back', :back, class:"btn btn-success" %>
-    </div>
+<div class="btn-group" role="group" aria-label="Basic example">
+<%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-warning" %>
+<%= button_to 'Profile', show_user_path, class:"btn btn-primary" %>
+<%= link_to 'Back', :back, class:"btn btn-success" %>
+</div>
 <% else %>
-    <%= link_to 'Sign up', new_user_registration_path %>
-    <%= link_to 'Sign in', new_user_session_path %>
+<%= link_to 'Sign up', new_user_registration_path %>
+<%= link_to 'Sign in', new_user_session_path %>
 <% end %>
-
+</nav>
+<div class="row justify-content-center">
+<div class="row col-md-6 col-md-push-">
+<h1>Library Logs</h1>
 <table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Link</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<thead>
+<tr>
+<th>Title</th>
+<th>Link</th>
+<th colspan="3"></th>
+</tr>
+</thead>
 
-  <tbody>
-    <% @Log.distinct.pluck(:title).each do |log| %>
-      <tr>
-        <td><%= log %></td>
-        <td><%= link_to 'History', history_book_path(Book.find_by(title: log).id) %></td>
+<tbody>
+<% @Log.distinct.pluck(:title).each do |log| %>
+  <tr>
+  <td><%= log %></td>
+  <td><%= link_to 'History', history_book_path(Book.find_by(title: log).id) %></td>
+  <% end %>
+  <% @BooksUser.each do |booksUser| %>
+    <tr>
+    <% @title = Book.where(id: booksUser.book_id).first.title %>
+    <% if !(Log.where(title: @title).count > 0) %> 
+    <td><%= Book.find_by(id: booksUser.book_id).title %></td>
+    <td><%= link_to 'History', history_book_path(Book.find_by(id: booksUser.book_id)) %></td>
+    </tr>
     <% end %>
-    <% @BooksUser.each do |booksUser| %>
-      <tr>
-        <% @title = Book.where(id: booksUser.book_id).first.title %>
-        <% if !(Log.where(title: @title).count > 0) %> 
-        <td><%= Book.find_by(id: booksUser.book_id).title %></td>
-        <td><%= link_to 'History', history_book_path(Book.find_by(id: booksUser.book_id)) %></td>
-      </tr>
-      <% end %>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+    </table>
+    </div>
+    </div></div>

@@ -80,7 +80,7 @@ class BooksController < ApplicationController
   def borrow
     user = User.find(current_user.id)
     nbook = Book.find(params[:id])
-    if (user.book.find_by_id(nbook.id).nil? != false && nbook.copies > 0) 
+    if (user.book.find_by_id(nbook.id).nil? != false && nbook.copies >= 1) 
       user.book << nbook
       nbook.copies = nbook.copies - 1
       nbook.status = false
@@ -91,6 +91,8 @@ class BooksController < ApplicationController
       else
         redirect_to "/user", notice: (nbook.title + " - has been Borrowed")
       end
+    elsif (nbook.copies <= 0)
+      redirect_to show_book_path(nbook.id), notice: (nbook.title + " - no more books are available") 
     else
       redirect_to "/user", notice: (nbook.title + " - is already Borrowed") 
     end
