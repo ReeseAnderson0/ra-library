@@ -1,17 +1,14 @@
-<h1>Profile</h1>
 
 <% if current_user %>
+<strong>Logged in as:</strong> 
+<%= current_user.email %><br>
     <div class="btn-group" role="group" aria-label="Basic example">
     <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
     <%= button_to 'Home', home_page_path, class:"btn btn-warning" %>
     </div>
-    <% end %>
+<% end %>
 
-
-<% if current_user %>
-<strong>Logged in as:</strong> 
-<%= current_user.email %>
-<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+<h1>Profile</h1>
 
 <h4>Borrowed Books</h4>
 <table>
@@ -55,5 +52,4 @@
 <% end %>
 </table>
   
-  <% end %>
   
