@@ -33,7 +33,8 @@
       </div>
       <div class="row justify-content-center">
         <div class="row col-md-6 col-md-push-4">
-          <table class="table table-responsive table-striped">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search Book Name . . . " onkeyup="srchTitleJS()" id="srchTitle" aria-label="Search" style="margin-top: 10px;">
+          <table class="table table-responsive table-striped" id="srchTable">
             <thead>
               <tr>
                 <th>Title</th>
@@ -63,3 +64,23 @@
         </div>
       </div>
     </div>
+    <script>
+      function srchTitleJS() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("srchTitle");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("srchTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+    </script>
