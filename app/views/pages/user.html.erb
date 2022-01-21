@@ -1,6 +1,6 @@
 <div class="p-3 mb-2 bg-light text-black " style="height: full;">
   <nav class="navbar navbar-expand-lg justify-content-center fixed-top bg-warning">
-    
+    <h1 style="position: absolute; left: 0px; margin-left: 20px; font-family: 'Times New Roman', Times, serif;">RA-Library</h1>
     <% if current_user %>
     <div class="btn-group" role="group" aria-label="Basic example">
       <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
