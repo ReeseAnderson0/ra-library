@@ -34,13 +34,18 @@
       <div class="row justify-content-center">
         <div class="row col-md-6 col-md-push-4">
           <input class="form-control mr-sm-2" type="search" placeholder="Search Book Name . . . " onkeyup="srchTitleJS()" id="srchTitle" aria-label="Search" style="margin-top: 10px; border-radius: 33px;">
-          <table class="table table-responsive table-striped" id="srchTable">
+          <table class="table table-responsive table-striped table-bordered" id="srchTable"  style="margin-top: 10px;">
             <thead>
               <tr>
                 <th>Title</th>
                 <th>Copies</th>
                 <% if params[:branch_search].count != 1 %>
                 <th>Name</th>
+                <% end %>
+                <th>View</th>
+                <% if current_user && current_user.admin %>
+                <th>Edit</th>
+                <th>Delete</th>
                 <% end %>
               </tr>
             </thead>
