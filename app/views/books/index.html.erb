@@ -1,9 +1,9 @@
 <div class="p-3 mb-2 bg-light text-black " style="height: 100%;">
-<nav class="navbar navbar-expand-lg justify-content-center">
+<nav class="navbar navbar-expand-lg justify-content-center fixed-top bg-warning">
 <% if current_user %>
     <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
     <%= button_to 'Profile', show_user_path, class:"btn btn-primary" %>
-    <%= button_to 'Home', home_page_path, class:"btn btn-warning" %>
+    <%= button_to 'Home', home_page_path, class:"btn btn-light" %>
 <% else %>
 <%= link_to 'Sign up', new_user_registration_path, class:"btn btn-success" %>
     <%= button_to 'Sign in', new_user_session_path, class:"btn btn-primary" %>
@@ -36,13 +36,13 @@
 </div>
 <div class="row justify-content-center">
 <div class="row col-md-6 col-md-push-4">
-<table class="table table-responsive">
+<table class="table table-responsive table-striped">
   <thead>
     <tr>
       <th>Title</th>
       <th>Copies</th>
       <% if params[:branch_search].count != 1 %>
-      <th>Address</th>
+      <th>Branch Name</th>
       <% end %>
     </tr>
   </thead>

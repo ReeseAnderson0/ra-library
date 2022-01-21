@@ -46,7 +46,7 @@ class BooksController < ApplicationController
     nbook = Book.find(params[:id])
     userbook = User.find_by_id(current_user.id).book.ids
     if (nbook.status == false)
-      Log.create(title: nbook.title, author: nbook.author, email: current_user.email)
+      Log.create(title: nbook.title, author: nbook.author, email: current_user.email, library_name: nbook.library_name)
       current_user.book.destroy(Book.find_by_id(nbook))
       nbook.status = true
       nbook.copies = nbook.copies + 1
