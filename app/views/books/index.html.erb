@@ -40,7 +40,7 @@
                 <th>Title</th>
                 <th>Copies</th>
                 <% if params[:branch_search].count != 1 %>
-                <th>Branch Name</th>
+                <td><b>Name</b></td>
                 <% end %>
               </tr>
             </thead>
@@ -50,7 +50,8 @@
                 <td><%= book.title %></td>
                 <td><%= book.copies %></td>
                 <% if params[:branch_search].count != 1 %>
-                <td><%= book.library_name %></td>
+                <% @details = Branch.find_by(branch_name: book.library_name).address + "\n" + Branch.find_by(branch_name: book.library_name).phone %>
+                <td data-toggle="tooltip" data-placement="top"  data-html="true" title="<%= @details %>"><b><%= book.library_name %></b></td>
                 <% end %>
                 <td><%= link_to 'View', show_book_path(book), class:"btn btn-success btn-sm" %></td>    
                 <% if current_user && current_user.admin %>
