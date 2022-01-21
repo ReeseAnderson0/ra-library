@@ -8,7 +8,7 @@ class BooksController < ApplicationController
     @waitlist.destroy
     redirect_to "/user", notice: (@book.title + " - has already been removed from waitlist") 
   end
-
+  
   def waitlist
     waitlist = Waitlist.all
     book = Book.find(params[:id])
@@ -29,20 +29,24 @@ class BooksController < ApplicationController
   end
   
   def log
-    @BooksUser = BooksUser.all
-    @User = User.all
-    @books = Book.all
-    @Log = Log.all
+    if (current_user.admin != true)
+      redirect_to root_path, notice: ("Missing Permissions")
+    else
+      @BooksUser = BooksUser.all
+      @User = User.all
+      @books = Book.all
+      @Log = Log.all
+    end
   end
   
   def details
     if (current_user.admin != true)
       redirect_to root_path, notice: ("Missing Permissions")
     else
-    @BooksUser = BooksUser.all
-    @User = User.all
-    @books = Book.all
-    @Log = Log.all
+      @BooksUser = BooksUser.all
+      @User = User.all
+      @books = Book.all
+      @Log = Log.all
     end
   end
   
@@ -70,6 +74,9 @@ class BooksController < ApplicationController
   end
   
   def history
+    if (current_user.admin != true)
+      redirect_to root_path, notice: ("Missing Permissions")
+    end
     @books = Book.all
     @BooksUser = BooksUser.all
     @Log = Log.all
@@ -110,15 +117,15 @@ class BooksController < ApplicationController
     if (current_user.admin != true)
       redirect_to root_path, notice: ("Missing Permissions")
     else
-    @book = Book.new(book_params)
-    respond_to do |format|
-      if @book.save
-        format.html { redirect_to book_url(@book), notice: "Book was successfully created." }
-        format.json { render :show, status: :created, location: @book }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
-      end
+      @book = Book.new(book_params)
+      respond_to do |format|
+        if @book.save
+          format.html { redirect_to book_url(@book), notice: "Book was successfully created." }
+          format.json { render :show, status: :created, location: @book }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @book.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -128,24 +135,28 @@ class BooksController < ApplicationController
     if (current_user.admin != true)
       redirect_to root_path, notice: ("Missing Permissions")
     else
-    respond_to do |format|
-      if @book.update(book_params)
-        format.html { redirect_to book_url(@book), notice: "Book was successfully updated." }
-        format.json { render :show, status: :ok, location: @book }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @book.update(book_params)
+          format.html { redirect_to book_url(@book), notice: "Book was successfully updated." }
+          format.json { render :show, status: :ok, location: @book }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @book.errors, status: :unprocessable_entity }
+        end
       end
-    end
     end
   end
   
   # DELETE /books/1 or /books/1.json
   def destroy
-    @book.destroy
-    respond_to do |format|
-      format.html { redirect_to books_url, notice: "Book was successfully destroyed." }
-      format.json { head :no_content }
+    if (current_user.admin != true)
+      redirect_to root_path, notice: ("Missing Permissions")
+    else
+      @book.destroy
+      respond_to do |format|
+        format.html { redirect_to books_url, notice: "Book was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
   end
   
