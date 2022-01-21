@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
                     <% @BooksUser.each do |bookuser| %>
-                    <% if (bookuser.book_id == @book.id) %>
+                    <% if (Book.find_by(id: bookuser.book_id).title == @book.title) %>
                     <tr>
                         <td><%= Book.find_by(id: bookuser.book_id).title %></td>
                         <td><%= User.find_by(id: bookuser.user_id).email %></td>
