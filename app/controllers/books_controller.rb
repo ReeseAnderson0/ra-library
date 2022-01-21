@@ -36,10 +36,14 @@ class BooksController < ApplicationController
   end
   
   def details
+    if (current_user.admin != true)
+      redirect_to root_path, notice: ("Missing Permissions")
+    else
     @BooksUser = BooksUser.all
     @User = User.all
     @books = Book.all
     @Log = Log.all
+    end
   end
   
   def returnBook
@@ -73,6 +77,9 @@ class BooksController < ApplicationController
   
   # GET /books/new
   def new
+    if (current_user.admin != true)
+      redirect_to root_path, notice: ("Missing Permissions")
+    end
     @book = Book.new
   end
   
@@ -100,6 +107,9 @@ class BooksController < ApplicationController
   
   # POST /books or /books.json
   def create
+    if (current_user.admin != true)
+      redirect_to root_path, notice: ("Missing Permissions")
+    else
     @book = Book.new(book_params)
     respond_to do |format|
       if @book.save
@@ -109,11 +119,15 @@ class BooksController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
+      end
     end
   end
   
   # PATCH/PUT /books/1 or /books/1.json
   def update
+    if (current_user.admin != true)
+      redirect_to root_path, notice: ("Missing Permissions")
+    else
     respond_to do |format|
       if @book.update(book_params)
         format.html { redirect_to book_url(@book), notice: "Book was successfully updated." }
@@ -122,6 +136,7 @@ class BooksController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
+    end
     end
   end
   
