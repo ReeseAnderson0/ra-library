@@ -24,10 +24,15 @@ a:hover {
   background-color: #000; }
 
 th {
-  padding-bottom: 5px; }
+  padding-bottom: 5px;
+font-weight: bold;
+font-size: 1.2em;
+ }
 
 td {
-  padding: 0 5px 7px; }
+  padding: 0 5px 7px;
+  font-weight: bold;
+}
 
 div.field,
 div.actions {
