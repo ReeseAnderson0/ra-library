@@ -12,43 +12,48 @@
 <% end %>
 
 <div class="field">
-  <%= form.label :title %>
-  <%= form.text_field :title %>
+  <h6><%= form.label :title  %></h6>
+  <%= form.text_field :title, :readonly => true, class: 'form-control', style: "width:40%;" %>
 </div>
 
 <div class="field">
-  <%= form.label :author %>
-  <%= form.text_field :author %>
+  <h6><%= form.label :library_name  %></h6>
+  <%= form.text_field :library_name, :readonly => true, class: 'form-control', style: "width:40%;" %>
 </div>
 
 <div class="field">
-  <%= form.label :genre %>
-  <%= form.text_field :genre %>
+  <h6><%= form.label :author  %></h6>
+  <%= form.text_field :author, :readonly => true, class: 'form-control', style: "width:40%;" %>
 </div>
 
 <div class="field">
-  <%= form.label :subgenre %>
-  <%= form.text_field :subgenre %>
+  <h6><%= form.label :genre  %></h6>
+  <%= form.text_field :genre, :readonly => true, class: 'form-control', style: "width:40%;" %>
 </div>
 
 <div class="field">
-  <%= form.label :pages %>
-  <%= form.number_field :pages %>
+  <h6><%= form.label :subgenre  %></h6>
+  <%= form.text_field :subgenre, :readonly => true, class: 'form-control', style: "width:40%;" %>
 </div>
 
 <div class="field">
-  <%= form.label :publisher %>
-  <%= form.text_field :publisher %>
+  <h6><%= form.label :pages  %></h6>
+  <%= form.text_field :pages, :readonly => true, class: 'form-control', style: "width:40%;" %>
 </div>
 
 <div class="field">
-  <%= form.label :copies %>
-  <%= form.number_field :copies %>
+  <h6><%= form.label :publisher  %></h6>
+  <%= form.text_field :publisher, :readonly => true, class: 'form-control', style: "width:40%;" %>
 </div>
 
 <div class="field">
-  <%= form.label :library_name %>
-  <%= form.text_field :library_name %>
+  <h6><%= form.label :copies  %></h6>
+  <%= form.text_field :copies, :readonly => true, class: 'form-control', style: "width:40%;" %>
+</div>
+
+<div class="field">
+  <h6><%= form.label :library_name  %></h6>
+  <%= form.text_field :library_name, :readonly => true, class: 'form-control', style: "width:40%;" %>
 </div>
 
 <div class="actions">
