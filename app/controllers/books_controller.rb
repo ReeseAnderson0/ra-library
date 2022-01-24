@@ -61,14 +61,13 @@ class BooksController < ApplicationController
       userbook = User.find_by_id(current_user.id).book.ids
       if (nbook.status == false)
         Log.create(title: nbook.title, author: nbook.author, email: current_user.email, library_name: nbook.library_name, book_id: nbook.id)
-        current_user.book.destroy(Book.find_by_id(nbook))
-        nbook.status = true
+        BooksUser.where(user_id: current_user.id, book_id: nbook.id).first.destroy
         nbook.copies = nbook.copies + 1
         nbook.save
         if !(Waitlist.find_by(book_id: nbook.id).nil?)
           WaitlistMailer.with(book_id: nbook.id).waitlist_notice.deliver_later
         end 
-        redirect_to "/user", alert: (nbook.title + " - has been Returned")
+        redirect_to "/user", alert: (current_user.id)
       else
         redirect_to "/user", alert: (nbook.title + " - has already been Returned") 
       end
