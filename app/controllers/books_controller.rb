@@ -61,7 +61,7 @@ class BooksController < ApplicationController
       userbook = User.find_by_id(current_user.id).book.ids
       if (nbook.status == false)
         Log.create(title: nbook.title, author: nbook.author, email: current_user.email, library_name: nbook.library_name, book_id: nbook.id)
-        BooksUser.find_by(user_id: current_user.id, book_id: nbook.id).destroy
+        BooksUser.where(user_id: current_user.id, book_id: nbook.id).first.destroy
         nbook.copies = nbook.copies + 1
         nbook.save
         if !(Waitlist.find_by(book_id: nbook.id).nil?)
