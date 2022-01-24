@@ -136,6 +136,12 @@ class BooksController < ApplicationController
       end
     end
     
+    def edit
+      if (current_user.admin != true)
+        redirect_to root_path, alert: ("Missing Permissions")
+      end
+    end
+
     # PATCH/PUT /books/1 or /books/1.json
     def update
       if (current_user.admin != true)
