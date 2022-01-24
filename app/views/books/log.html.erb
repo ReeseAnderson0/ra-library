@@ -19,26 +19,23 @@
       <input class="form-control mr-sm-2" type="search" placeholder="Search Book Name . . . " onkeyup="srchTitleJS()" id="srchTitle" aria-label="Search" style="margin-top: 10px; border-radius: 33px;">
       <table class="table table-responsive table-striped table-bordered" id="srchTable"  style="margin-top: 10px;">
         <thead>
-          <tr>
-            <th>Title</th>
+          <tr style="text-align: center;">
+            <th style="text-align: left;">Title</th>
+            <th>Book ID</th>
+            <th>Location</th>
             <th>Link</th>
           </tr>
         </thead>
         <tbody>
-          <% @Log.distinct.pluck(:title).each do |log| %>
-          <tr>
-            <td><%= log %></td>
-            <td><%= link_to 'History', history_book_path(Book.find_by(title: log).id), class:"btn btn-success btn-sm" %></td>
-            <% end %>
-            <% @BooksUser.each do |booksUser| %>
-            <tr>
-              <% @title = Book.where(id: booksUser.book_id).first.title %>
-              <% if !(Log.where(title: @title).count > 0) %> 
-              <td><%= Book.find_by(id: booksUser.book_id).title %></td>
-              <td><%= link_to 'History', history_book_path(Book.find_by(id: booksUser.book_id)), class:"btn btn-success btn-sm" %></td>
-            </tr>
-            <% end %>
-            <% end %>
+          <% @BooksWithHistory.each do |log| %>
+          <tr style="text-align: center;">
+            <% if Book.where(id: log[1]).count > 0 %>
+            <td style="text-align: left;"><%= log[0] %></td>
+            <td><%= log[1] %></td>
+            <td><%= log[2] %></td>
+            <td><%= link_to 'History', history_book_path(Book.find_by(title: log[0], library_name: log[2]),:logSearch => log[2] ), class:"btn btn-success btn-sm" %></td>
+            <% end %>     
+            <% end %>     
           </tbody>
         </table>
       </div>

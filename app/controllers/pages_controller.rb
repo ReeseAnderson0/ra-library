@@ -9,7 +9,7 @@ class PagesController < ApplicationController
     @Book = Book.all
     @Waitlist = Waitlist.all
     else
-      redirect_to root_path, notice: ("Missing Permissions")
+      redirect_to root_path, alert: ("Missing Permissions")
     end
   end
 end

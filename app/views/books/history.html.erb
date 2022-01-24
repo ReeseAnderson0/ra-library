@@ -13,10 +13,11 @@
     <div class="row justify-content-center">
         <div class="row col-md-6 col-md-push-">
             <%= form_with(model: @book) do |form| %>
-            <h1>Book Page - <%= @book.title %></h1><br>
+            <h1>Book Page(<%= @book.id %>) - <%= @book.title %> </h1><br>
             <h2>Log Of Current Borrowed Books</h2>
             <table class="table table-responsive table-striped table-bordered" id="srchTable"  style="margin-top: 10px;">
                 <thead>
+                    <th>Book ID</th>
                     <th>Title</th>
                     <th>Email</th>
                     <th>Checkout Date</th>
@@ -25,8 +26,9 @@
                 </thead>
                 <tbody>
                     <% @BooksUser.each do |bookuser| %>
-                    <% if (Book.find_by(id: bookuser.book_id).title == @book.title) %>
                     <tr>
+                        <% if Book.find_by(id: params[:id]).library_name == params[:logSearch] && Book.find_by(id: bookuser.book_id).id == @book.id %>
+                        <td><%= bookuser.book_id %></td>
                         <td><%= Book.find_by(id: bookuser.book_id).title %></td>
                         <td><%= User.find_by(id: bookuser.user_id).email %></td>
                         <td><%= (bookuser.created_at).strftime("%B %d, %Y") %></td>
@@ -39,6 +41,7 @@
             </table><br>
             <table class="table table-responsive table-striped table-bordered" id="srchTable"  style="margin-top: 10px;">
                 <thead>
+                    <th>Book ID</th>
                     <th>Title</th>
                     <th>Email</th>
                     <th>Return Date</th>
@@ -47,11 +50,12 @@
                 <tbody>
                     <h2>Log Of Returned Books</h2>
                     <% @Log.each do |log| %>
-                    <% if (log.title == @book.title) %>
+                    <% if Book.find_by(id: params[:id]).library_name == params[:logSearch] && log.book_id == @book.id %>
                     <tr>
+                        <td><%= log.book_id %></td>
                         <td><%= log.title %></td>
                         <td><%= log.email %></td>
-                        <td><%= (log.created_at).strftime("%B %d, %Y") %></td>
+                        <td><%= (log.created_at).in_time_zone('Eastern Time (US & Canada)') %></td>
                         <td><%= log.library_name %></td>
                     </tr>
                     <% end %>
