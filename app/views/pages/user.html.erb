@@ -7,6 +7,9 @@
       <%= button_to 'Home', home_page_path, class:"btn btn-light" %>
     </div>
     <% end %>
+    <% if current_user && current_user.admin %>
+    <%= button_to 'Library Log', log_book_path, class:"btn btn-info" %>
+    <% end %>
   </div>
   
   <div class="row justify-content-center">
