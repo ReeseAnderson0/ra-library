@@ -56,7 +56,7 @@
           <tr style="text-align: center;">
             <% if waitlist.email == current_user.email %>
             <td style="text-align: left;"><%= Book.find_by_id(waitlist.book_id).title %></td>
-            <td><%= link_to Book.find_by_id(waitlist.book_id).id, show_book_path(waitlist.book_id) %></td>    
+            <td style="text-decoration: underline;"><%= link_to Book.find_by_id(waitlist.book_id).id, show_book_path(waitlist.book_id) %></td>    
             <td><%= Book.find_by_id(waitlist.book_id).copies %></td>
             <td><%= Book.find_by_id(waitlist.book_id).library_name %></td>
             <td><div class="btn btn-danger btn-sm"><%= link_to 'Remove', removeWaitlist_book_path(waitlist.id) %></div</td>        
