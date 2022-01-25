@@ -16,7 +16,7 @@
   <div class="row justify-content-center">
     <div class="row col-md-6 col-md-push-">
       <h1>Library Logs</h1>
-      <input class="form-control mr-sm-2" type="search" placeholder="Search Book Name . . . " onkeyup="srchTitleJS()" id="srchTitle" aria-label="Search" style="margin-top: 10px; border-radius: 33px;">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search . . . " onkeyup="srchTitleJS()" id="srchTitle" aria-label="Search" style="margin-top: 10px; border-radius: 33px;">
       <table class="table table-responsive table-striped table-bordered" id="srchTable"  style="margin-top: 10px;">
         <thead>
           <tr style="text-align: center;">
@@ -42,22 +42,32 @@
     </div>
   </div>
   <script>
-    function srchTitleJS() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("srchTitle");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("srchTable");
-      tr = table.getElementsByTagName("tr");
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
+      function srchTitleJS() {
+        var input, filter, table, tr, td_title, td_location, td_id, i, txtValue;
+        input = document.getElementById("srchTitle");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("srchTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td_title = tr[i].getElementsByTagName("td")[0];
+          td_id = tr[i].getElementsByTagName("td")[1];
+          td_location = tr[i].getElementsByTagName("td")[2];
+          if (td_title || td_id || td_location) {
+            titleTxtValue = td_title.textContent || td_title.innerText;
+            idTxtValue = td_id.textContent || td_id.innerText;
+            locationTxtValue = td_location.textContent || td_location.innerText;
+            if (titleTxtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } 
+            else if (idTxtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            }
+            else if (locationTxtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
           }
         }
       }
-    }
   </script>
