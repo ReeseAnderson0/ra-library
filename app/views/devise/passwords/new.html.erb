@@ -1,16 +1,27 @@
+<div class="p-3 mb-2 bg-light text-black " style="height: full;">
+  <nav class="navbar navbar-expand-lg justify-content-center fixed-top bg-warning">
+  <h1 style="position: absolute; left: 0px; margin-left: 20px; font-family: 'Times New Roman', Times, serif;">RA-Library</h1>
+  <%= button_to 'Home', home_page_path, class:"btn btn-light" %>
+  </nav>
+  <div class="row justify-content-center">
+    <div class="row col-md-6 col-md-push-">
 <h2>Forgot your password?</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <h6><%= f.label :email %></h6>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', style: "width:40%;"  %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+    <%= f.submit "reset password", class: "btn btn-success"  %>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
+</div>
+</div>
+</div>
+</div>
