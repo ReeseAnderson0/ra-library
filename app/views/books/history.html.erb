@@ -59,7 +59,7 @@
                         <td style="text-align: left;"><%= log.title %></td>
                         <td><%= log.book_id %></td>
                         <td><%= log.email %></td>
-                        <td><%= (log.created_at).in_time_zone('Eastern Time (US & Canada)') %></td>
+                        <td><%= (log.created_at).in_time_zone('Eastern Time (US & Canada)').strftime('%F(%R)') %></td>
                         <td><%= log.library_name %></td>
                     </tr>
                     <% end %>
