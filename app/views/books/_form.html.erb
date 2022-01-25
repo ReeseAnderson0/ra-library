@@ -13,22 +13,17 @@
 
 <div class="field">
   <h6><%= form.label :title  %></h6>
-  <%= form.text_field :title, class: 'form-control', style: "width:40%;" %>
-</div>
-
-<div class="field">
-  <h6><%= form.label :library_name  %></h6>
-  <%= form.text_field :library_name, class: 'form-control', style: "width:40%;" %>
+  <%= form.text_field :title, class: 'form-control', style: "width:40%;", :required => true %>
 </div>
 
 <div class="field">
   <h6><%= form.label :author  %></h6>
-  <%= form.text_field :author, class: 'form-control', style: "width:40%;" %>
+  <%= form.text_field :author, class: 'form-control', style: "width:40%;", :required => true %>
 </div>
 
 <div class="field">
   <h6><%= form.label :genre  %></h6>
-  <%= form.text_field :genre, class: 'form-control', style: "width:40%;" %>
+  <%= form.text_field :genre, class: 'form-control', style: "width:40%;", :required => true %>
 </div>
 
 <div class="field">
@@ -48,12 +43,12 @@
 
 <div class="field">
   <h6><%= form.label :copies  %></h6>
-  <%= form.text_field :copies, class: 'form-control', style: "width:40%;" %>
+  <%= form.text_field :copies, class: 'form-control', style: "width:40%;", :required => true %>
 </div>
 
 <div class="field">
   <h6><%= form.label :library_name  %></h6>
-  <%= form.text_field :library_name, class: 'form-control', style: "width:40%;" %>
+  <%= form.text_field :library_name, class: 'form-control', style: "width:40%;", :required => true %>
 </div>
 
 <div class="actions">
